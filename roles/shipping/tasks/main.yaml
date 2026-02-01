@@ -1,0 +1,40 @@
+# syntax FOR https://docs.ansible.com/projects/ansible/latest/collections/ansible/builtin/import_role_module.html
+
+- name: app setup
+  ansible.builtin.import_role:
+    name: for-common
+    tasks_from: app-setup.yaml
+
+# THE ABOVE VARAKU RUN CHESTE ansible-playbook -i inventory.ini main.yaml -e "component=catalogue" 
+
+- name: app setup
+  ansible.builtin.import_role:
+    name: for-common
+    tasks_from: java.yaml # for-common lo vunna code ni call chstunnam 
+
+- name: install mysql python libraries
+  ansible.builtin.pip:
+    executable: pip3.9
+    name: "{{ item }}"
+  loop:
+  - cryptography
+  - PyMySQL
+
+- name: import shipping data into mysql
+  community.mysql.mysql_db:
+    state: import
+    name: all
+    login_host: "{{ MYSQL_HOST }}"
+    login_user: "{{ MYSQL_ROOT_USER }}"
+    login_password: "{{ MYSQL_ROOT_PASSWORD }}"  # see in notes
+    target: "{{ item }}"
+  loop:
+  - /app/db/schema.sql
+  - /app/db/app-user.sql 
+  - /app/db/master-data.sql
+
+- name: system setup
+  ansible.builtin.import_role:
+    name: for-common
+    tasks_from: system-setup.yaml
+

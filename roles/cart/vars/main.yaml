@@ -1,0 +1,5 @@
+
+# ikkada values avasarum ledhu just for simplicity 
+# future lo vaste we can override here 
+
+SPECIFIC_VAR: specific-value

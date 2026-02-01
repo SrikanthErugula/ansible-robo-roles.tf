@@ -1,0 +1,43 @@
+# syntax FOR https://docs.ansible.com/projects/ansible/latest/collections/ansible/builtin/import_role_module.html
+
+- name: app setup
+  ansible.builtin.import_role:
+    name: for-common
+    tasks_from: app-setup.yaml # see in for-common file its comes from there
+  # tags:
+  # - deployment
+# THE ABOVE VARAKU RUN CHESTE ansible-playbook -i inventory.ini all-start-code.yaml -e "component=catalogue" 
+
+- name: app setup
+  ansible.builtin.import_role:
+    name: for-common
+    tasks_from: nodejs.yaml # for-common lo vunna code ni call chstunnam 
+  # tags:
+  # - deployment
+
+- name: copy mongo repo
+  ansible.builtin.copy:
+    src: mongo.repo # # see in  file folder  its comes from there
+    dest: /etc/yum.repos.d/mongo.repo
+
+- name: install mongodb client
+  ansible.builtin.package:
+    name: mongodb-mongosh
+    state: present
+
+- name: connnect to mongodb catalogue
+  ansible.builtin.command: mongosh {{ MONGODB_HOST }} --quiet --eval "db.getMongo().getDBNames().indexOf('catalogue')"
+  register: catalogue_output
+
+# {{ MONGODB_HOST }} its comes from group_vars folder 
+
+- name: load products into mongodb
+  ansible.builtin.shell: mongosh --host {{ MONGODB_HOST }} </app/db/master-data.js
+  when: catalogue_output.stdout | int < 0
+
+- name: app setup
+  ansible.builtin.import_role:
+    name: common
+    tasks_from: system-setup.yaml # see in for-common file its comes from there
+  # tags:
+  # - deployment

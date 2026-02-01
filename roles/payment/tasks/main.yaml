@@ -1,0 +1,19 @@
+# syntax FOR https://docs.ansible.com/projects/ansible/latest/collections/ansible/builtin/import_role_module.html
+
+- name: app setup
+  ansible.builtin.import_role:
+    name: for-common
+    tasks_from: app-setup.yaml
+
+# THE ABOVE VARAKU RUN CHESTE ansible-playbook -i inventory.ini main.yaml -e "component=catalogue" 
+
+- name: app setup
+  ansible.builtin.import_role:
+    name: for-common
+    tasks_from: python.yaml # for-common lo vunna code ni call chstunnam 
+
+- name: system setup
+  ansible.builtin.import_role:
+    name: for-common
+    tasks_from: system-setup.yaml
+

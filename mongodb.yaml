@@ -1,0 +1,5 @@
+- name: setup mongodb
+  hosts: mongodb
+  become: yes
+  roles: # see in notes
+  - mongodb # idhi roles folder lo vunde another mongodb

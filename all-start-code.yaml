@@ -1,0 +1,15 @@
+- name: "setup {{ component }} server"
+  #hosts: "{{ component }}"  --> it is used in ansible 
+  hosts: localhost
+  connection : host
+  become: yes
+  roles: # see in notes
+  - "{{ component }}" 
+
+  # here component lo ki manam emi ithe modules run avuthayoo avvani vastai like mongodb,redis,mysql ... all
+
+
+  #ansible-playbook -i inventory all-start-code.yaml -e "component=redis" for run so ala 
+  # -e "component=redis"
+  # -e "component=mysql"
+  # -e "component=rabbitmq" ....etc

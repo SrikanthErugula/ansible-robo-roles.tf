@@ -1,0 +1,6 @@
+MYSQL_ROOT_PASSWORD: "{{ lookup('amazon.aws.aws_ssm', '/roboshop/mysql/mysql_root_password', region='us-east-1', decrypt=True ) }}"
+
+# syntax 
+# https://docs.ansible.com/projects/ansible/latest/collections/amazon/aws/ssm_parameter_lookup.html
+
+# amazon.aws.aws_ssm here aws numchi query chestunnam ila plugins lo chesam so ala ikkada 

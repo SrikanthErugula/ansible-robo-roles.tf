@@ -1,0 +1,5 @@
+- name: include the role
+  ansible.builtin.include_role:
+  #ansible.builtin.import_role:
+    name: fro-common
+    tasks_from: include-import-com.yaml # its comes from for-common file 
