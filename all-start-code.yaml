@@ -1,7 +1,7 @@
 - name: "setup {{ component }} server"
   #hosts: "{{ component }}"  --> it is used in ansible 
-  hosts: localhost
-  connection : host
+  hosts: localhost  # --> it is used for terraform 
+  connection : local # --> it is used for terraform 
   become: yes
   roles: # see in notes
   - "{{ component }}" 
