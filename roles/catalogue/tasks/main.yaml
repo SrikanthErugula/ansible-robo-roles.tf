@@ -8,7 +8,7 @@
   # - deployment
 # THE ABOVE VARAKU RUN CHESTE ansible-playbook -i inventory.ini all-start-code.yaml -e "component=catalogue" 
 
-- name: app setup
+- name: nodej setup
   ansible.builtin.import_role:
     name: for-common
     tasks_from: nodejs.yaml # for-common lo vunna code ni call chstunnam 
