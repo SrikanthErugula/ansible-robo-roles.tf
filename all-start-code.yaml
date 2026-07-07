@@ -1,10 +1,10 @@
 - name: "setup {{ component }} server"
-  # hosts: "{{ component }}"  
-  hosts: localhost  # --> it is used for terraform 
+  hosts: "{{ component }}"  
+  # hosts: localhost  # --> it is used for terraform 
   connection : local # --> it is used for terraform 
   become: yes
   roles: # see in notes
-  - "{{ component }}" 
+  - "{{ component }}"
 
   # here component lo ki manam emi ithe modules run avuthayoo avvani vastai like mongodb,redis,mysql ... all
 
